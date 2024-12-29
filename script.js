@@ -3,7 +3,7 @@ let audioFile;
 let isAnalyzing = false;
 
 document.addEventListener('DOMContentLoaded', function () {
-        wavesurfer = WaveSurfer.create({
+    wavesurfer = WaveSurfer.create({
         container: '#waveform',
         waveColor: '#0066ff',
         progressColor: '#000000',
@@ -207,6 +207,37 @@ function generateHTMLForType(type, data) {
                         </div>`
                     )
                     .join('')}
+            </div>
+            <div class="pattern-item">
+                <h4>Harmonic Structure</h4>
+                <div class="progression-list">
+                    <h5>Progressions</h5>
+                    <ul>
+                        ${data.harmonicStructure.progressions
+                            .map((prog) => `<li>${prog}</li>`)
+                            .join('')}
+                    </ul>
+                </div>
+                <h5>Chord Progression</h5>
+                <div class="chord-grid">
+                    ${data.harmonicStructure.chords
+                        .map(
+                            (chord) => `
+                            <div class="chord-box">
+                                <div class="chord-name">${chord.name}</div>
+                                <div class="chord-type">${chord.type}</div>
+                                <div class="chord-notes">
+                                    ${chord.notes
+                                        .map((note) => `
+                                        <div class="chord-note">${note}</div>
+                                    `)
+                                        .join('')}
+                                </div>
+                                <div class="chord-timing">${chord.timing} - ${chord.duration}</div>
+                            </div>`
+                        )
+                        .join('')}
+                </div>
             </div>`;
     }
     return '';
